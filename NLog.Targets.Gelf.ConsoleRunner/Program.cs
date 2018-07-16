@@ -82,7 +82,7 @@ namespace NLog.Targets.Gelf.ConsoleRunner
         private static Comic GetNextComic()
         {
             var nextComicIndex = Random.Next(1, 400);
-
+            
             using (var csv = new CsvReader(new StreamReader("comics.csv"), false))
             {
                 csv.MoveTo(nextComicIndex);

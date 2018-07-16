@@ -10,7 +10,7 @@ namespace NLog.Targets.Gelf.Tests.Resources
         {
             Assert.IsNotNull(filename);
             var thisAssembly = Assembly.GetExecutingAssembly();
-            var resourceFullName = typeof (ResourceHelper).Namespace + "." + filename;
+            var resourceFullName = typeof(ResourceHelper).Namespace + "." + filename;
             var manifestResourceStream = thisAssembly.GetManifestResourceStream(resourceFullName);
             Assert.IsNotNull(manifestResourceStream, "Resource not found in this assembly: " + resourceFullName);
 

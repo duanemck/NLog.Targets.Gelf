@@ -15,16 +15,16 @@ namespace NLog.Targets.Gelf.UnitTest
             {
                 var timestamp = DateTime.Now;
                 var logEvent = new LogEventInfo
-                                   {
-                                       Message = "Test Log Message", 
-                                       Level = LogLevel.Info, 
-                                       TimeStamp = timestamp,
-                                       LoggerName = "GelfConverterTestLogger"
-                                   };
+                {
+                    Message = "Test Log Message",
+                    Level = LogLevel.Info,
+                    TimeStamp = timestamp,
+                    LoggerName = "GelfConverterTestLogger"
+                };
                 logEvent.Properties.Add("customproperty1", "customvalue1");
                 logEvent.Properties.Add("customproperty2", "customvalue2");
                 logEvent.Properties.Add("custompropertyint", 199);
-                logEvent.Properties.Add("custompropertyarray", new[]{1,2,3});
+                logEvent.Properties.Add("custompropertyarray", new[] { 1, 2, 3 });
 
                 var jsonObject = new GelfConverter().GetGelfJson(logEvent, "TestFacility");
 
@@ -44,7 +44,7 @@ namespace NLog.Targets.Gelf.UnitTest
                 Assert.AreEqual(199, jsonObject.Value<int>("_custompropertyint"));
                 Assert.AreEqual(new[] { 1, 2, 3 }, jsonObject["_custompropertyarray"].ToObject<int[]>());
                 Assert.AreEqual("GelfConverterTestLogger", jsonObject.Value<string>("_LoggerName"));
-                
+
                 //make sure that there are no other junk in there
                 Assert.AreEqual(14, jsonObject.Count);
             }
@@ -53,10 +53,10 @@ namespace NLog.Targets.Gelf.UnitTest
             public void ShouldHandleExceptionsCorrectly()
             {
                 var logEvent = new LogEventInfo
-                                   {
-                                       Message = "Test Message",
-                                       Exception = new DivideByZeroException("div by 0")
-                                   };
+                {
+                    Message = "Test Message",
+                    Exception = new DivideByZeroException("div by 0")
+                };
 
                 var jsonObject = new GelfConverter().GetGelfJson(logEvent, "TestFacility");
 
@@ -158,7 +158,7 @@ namespace NLog.Targets.Gelf.UnitTest
             [TestCase(null)]
             public void ShouldSetDefaultFacility(string facility)
             {
-                var logEvent = new LogEventInfo {Message = "Test"};
+                var logEvent = new LogEventInfo { Message = "Test" };
 
                 var jsonObject = new GelfConverter().GetGelfJson(logEvent, facility);
 
